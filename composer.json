@@ -1,5 +1,5 @@
 {
-    "name": "helicon-php/type-converter",
+    "name": "helicon/type-converter",
     "description": "Simple typecasting system for PHP",
     "type": "library",
     "license": "MIT",
