@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter;
 
+use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\TypeCaster\ClassTypeCaster;
 use Helicon\TypeConverter\TypeCaster\DateTimeCaster;
 use Helicon\TypeConverter\TypeCaster\NumberTypeCaster;
@@ -83,10 +84,12 @@ class ConverterTest extends TestCase
     {
         $hydrator = new ReflectionHydrator();
         $resolver = new Resolver();
+        $parser = new Parser();
+
         $resolver->addConverter(new ScalarTypeCaster());
         $resolver->addConverter(new DateTimeCaster());
         $resolver->addConverter(new NumberTypeCaster());
-        $resolver->addConverter(new ClassTypeCaster($resolver, $hydrator));
+        $resolver->addConverter(new ClassTypeCaster($resolver, $parser, $hydrator));
 
         return new Converter($resolver);
     }

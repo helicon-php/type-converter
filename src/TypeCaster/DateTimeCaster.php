@@ -13,6 +13,7 @@ class DateTimeCaster implements TypeCasterInterface
 
     public function supports(string $type): bool
     {
+        $type = str_replace("\\", '', $type);
         return \DateTime::class === $type || \DateTimeImmutable::class === $type;
     }
 }

@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter\TypeCaster;
 
+use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\Resolver;
-use Psr\SimpleCache\CacheInterface;
-use Zend\Code\Generator\DocBlock\Tag\VarTag;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Reflection\DocBlockReflection;
 use Zend\Hydrator\ReflectionHydrator;
 
 class ClassTypeCaster implements TypeCasterInterface
@@ -20,25 +17,25 @@ class ClassTypeCaster implements TypeCasterInterface
     private $resolver;
 
     /**
+     * @var Parser
+     */
+    private $parser;
+
+    /**
      * @var ReflectionHydrator
      */
     private $reflectionHydrator;
 
     /**
-     * @var CacheInterface
-     */
-    private $cache;
-
-    /**
-     * @param Resolver           $resolver
+     * @param Resolver $resolver
+     * @param Parser $parser
      * @param ReflectionHydrator $reflectionHydrator
-     * @param CacheInterface     $cache
      */
-    public function __construct(Resolver $resolver, ReflectionHydrator $reflectionHydrator, CacheInterface $cache = null)
+    public function __construct(Resolver $resolver, Parser $parser, ReflectionHydrator $reflectionHydrator)
     {
         $this->resolver = $resolver;
+        $this->parser = $parser;
         $this->reflectionHydrator = $reflectionHydrator;
-        $this->cache = $cache;
     }
 
     /**
@@ -56,12 +53,12 @@ class ClassTypeCaster implements TypeCasterInterface
         }
 
         $refClass = new \ReflectionClass($type);
-        $schemas = $this->getSchemas($refClass);
+        $schemas = ($this->parser)($type);
 
         $results = [];
         foreach ($value as $property => $v) {
-            $type = $schemas[$property];
-            $results[$property] = $this->resolver->resolve($type)->convert($v, $type);
+            $innerType = $schemas[$property]['type'];
+            $results[$property] = $this->resolver->resolve($innerType)->convert($v, $innerType);
         }
 
         return $this->reflectionHydrator->hydrate($results, $refClass->newInstanceWithoutConstructor());
@@ -76,57 +73,4 @@ class ClassTypeCaster implements TypeCasterInterface
         return class_exists($type);
     }
 
-    /**
-     * @param \ReflectionClass $refClass
-     *
-     * @return array
-     */
-    private function getSchemas(\ReflectionClass $refClass): array
-    {
-        $cached = $this->readCache($refClass->getName());
-        if (null !== $cached) {
-            return $cached;
-        }
-
-        $schema = [];
-        foreach ($refClass->getProperties() as $property) {
-            $comment = $property->getDocComment();
-            $commentReflection = new DocBlockReflection($comment);
-            $generator = DocBlockGenerator::fromReflection($commentReflection);
-            foreach ($generator->getTags() as $tag) {
-                if ($tag instanceof VarTag) {
-                    if ('self' === $tag->getTypes()[0]) {
-                        $schema[$property->getName()] = $refClass->getName();
-                    } else {
-                        $schema[$property->getName()] = $tag->getTypes()[0];
-                    }
-                }
-            }
-        }
-
-        $this->saveCache($refClass->getName(), $schema);
-
-        return $schema;
-    }
-
-    private function readCache(string $className): ?array
-    {
-        if (null === $this->cache) {
-            return null;
-        }
-
-        return $this->cache->get($this->cacheKey($className));
-    }
-
-    private function saveCache(string $className, array $schema)
-    {
-        if (null !== $this->cache) {
-            $this->cache->set($this->cacheKey($className), $schema);
-        }
-    }
-
-    private function cacheKey(string $className)
-    {
-        return 'helicon_'.sha1($className);
-    }
 }

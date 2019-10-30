@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter\TypeCaster;
 
+use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\Resolver;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ReflectionHydrator;
@@ -25,7 +26,9 @@ class ClassTypeCasterTest extends TestCase
         $resolver->addConverter(new DateTimeCaster());
         $reflectionHydrator = new ReflectionHydrator();
 
-        $typeCaster = new ClassTypeCaster($resolver, $reflectionHydrator);
+        $parser = new Parser();
+
+        $typeCaster = new ClassTypeCaster($resolver, $parser, $reflectionHydrator);
         /** @var User $actual */
         $actual = $typeCaster->convert($data, User::class);
         $this->assertInstanceOf(User::class, $actual);
