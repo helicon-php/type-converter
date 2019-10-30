@@ -74,27 +74,11 @@ class User
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
 
     /**
@@ -106,14 +90,6 @@ class User
     }
 
     /**
-     * @param bool $enable
-     */
-    public function setEnable(bool $enable): void
-    {
-        $this->enable = $enable;
-    }
-
-    /**
      * @return float
      */
     public function getWeight(): float
@@ -122,26 +98,10 @@ class User
     }
 
     /**
-     * @param float $weight
-     */
-    public function setWeight(float $weight): void
-    {
-        $this->weight = $weight;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 }
