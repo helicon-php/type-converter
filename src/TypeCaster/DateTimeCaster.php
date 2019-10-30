@@ -13,6 +13,6 @@ class DateTimeCaster implements TypeCasterInterface
 
     public function supports(string $type): bool
     {
-        return '\DateTime' === $type || '\DateTimeImmutable' === $type;
+        return \DateTime::class === $type || \DateTimeImmutable::class === $type;
     }
 }

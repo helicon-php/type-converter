@@ -69,6 +69,10 @@ class ClassTypeCaster implements TypeCasterInterface
 
     public function supports(string $type): bool
     {
+        if (\DateTime::class === $type || \DateTimeImmutable::class === $type) {
+            return false;
+        }
+
         return class_exists($type);
     }
 

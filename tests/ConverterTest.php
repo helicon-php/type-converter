@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter;
 
-use Helicon\TypeConverter\TypeCaster\TypeCasterInterface;
+use Helicon\TypeConverter\TypeCaster\ClassTypeCaster;
+use Helicon\TypeConverter\TypeCaster\DateTimeCaster;
+use Helicon\TypeConverter\TypeCaster\NumberTypeCaster;
+use Helicon\TypeConverter\TypeCaster\ScalarTypeCaster;
 use PHPUnit\Framework\TestCase;
+use Zend\Hydrator\ReflectionHydrator;
 
 class ConverterTest extends TestCase
 {
@@ -13,30 +17,60 @@ class ConverterTest extends TestCase
     {
         $row = [
             'age' => '11',
+            'year' => '3',
+            'enable' => '0',
+            'createdAt' => '2019-10-29 11:00:00',
+            'friend' => [
+                'id' => '21',
+                'name' => 'taro yamda',
+            ],
         ];
 
         $schemas = [
             'age' => [
                 'type' => 'integer',
             ],
+            'year' => [
+                'type' => 'number',
+            ],
+            'enable' => [
+                'type' => 'bool',
+            ],
+            'createdAt' => [
+                'type' => \DateTime::class,
+            ],
+            'friend' => [
+                'type' => Friend::class,
+            ],
         ];
 
-        $resolver = $this->prophesize(Resolver::class);
-        $typeCaster = $this->prophesize(TypeCasterInterface::class);
+        $hydrator = new ReflectionHydrator();
+        $resolver = new Resolver();
+        $resolver->addConverter(new ScalarTypeCaster());
+        $resolver->addConverter(new DateTimeCaster());
+        $resolver->addConverter(new NumberTypeCaster());
+        $resolver->addConverter(new ClassTypeCaster($resolver, $hydrator));
 
-        $resolver->resolve('integer')
-            ->willReturn($typeCaster);
+        $converter = new Converter($resolver);
+        $actual = ($converter)($row, $schemas);
 
-        $typeCaster->convert('11', 'integer')
-            ->willReturn(11);
-
-        $converter = new Converter($resolver->reveal());
-        $converter->__invoke($row, $schemas);
-
-        $resolver->resolve('integer')
-            ->shouldHaveBeenCalledTimes(1);
-
-        $typeCaster->convert('11', 'integer')
-            ->shouldHaveBeenCalledTimes(1);
+        $this->assertSame(11, $actual['age']);
+        $this->assertSame(3, $actual['year']);
+        $this->assertFalse($actual['enable']);
+        $this->assertInstanceOf(\DateTime::class, $actual['createdAt']);
+        $this->assertInstanceOf(Friend::class, $actual['friend']);
     }
+}
+
+class Friend
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
 }
