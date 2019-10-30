@@ -7,7 +7,6 @@ namespace Helicon\TypeConverter;
 use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\TypeCaster\ClassTypeCaster;
 use Helicon\TypeConverter\TypeCaster\DateTimeCaster;
-use Helicon\TypeConverter\TypeCaster\NumberTypeCaster;
 use Helicon\TypeConverter\TypeCaster\ScalarTypeCaster;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ReflectionHydrator;
@@ -32,7 +31,7 @@ class ConverterTest extends TestCase
                 'type' => 'integer',
             ],
             'year' => [
-                'type' => 'number',
+                'type' => 'int',
             ],
             'enable' => [
                 'type' => 'bool',
@@ -88,7 +87,6 @@ class ConverterTest extends TestCase
 
         $resolver->addConverter(new ScalarTypeCaster());
         $resolver->addConverter(new DateTimeCaster());
-        $resolver->addConverter(new NumberTypeCaster());
         $resolver->addConverter(new ClassTypeCaster($resolver, $parser, $hydrator));
 
         return new Converter($resolver);
