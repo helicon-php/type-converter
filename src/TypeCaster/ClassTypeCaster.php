@@ -27,8 +27,8 @@ class ClassTypeCaster implements TypeCasterInterface
     private $reflectionHydrator;
 
     /**
-     * @param Resolver $resolver
-     * @param Parser $parser
+     * @param Resolver           $resolver
+     * @param Parser             $parser
      * @param ReflectionHydrator $reflectionHydrator
      */
     public function __construct(Resolver $resolver, Parser $parser, ReflectionHydrator $reflectionHydrator)
@@ -66,11 +66,12 @@ class ClassTypeCaster implements TypeCasterInterface
 
     public function supports(string $type): bool
     {
-        if (\DateTime::class === $type || \DateTimeImmutable::class === $type) {
+        try {
+            $refClass = new \ReflectionClass($type);
+
+            return $refClass->isUserDefined();
+        } catch (\ReflectionException $e) {
             return false;
         }
-
-        return class_exists($type);
     }
-
 }

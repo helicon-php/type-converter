@@ -21,14 +21,8 @@ class ClassTypeCasterTest extends TestCase
             'createdAt' => '2019-11-19 03:00:00',
         ];
 
-        $resolver = new Resolver();
-        $resolver->addConverter(new ScalarTypeCaster());
-        $resolver->addConverter(new DateTimeCaster());
-        $reflectionHydrator = new ReflectionHydrator();
+        $typeCaster = $this->createTypeCaster();
 
-        $parser = new Parser();
-
-        $typeCaster = new ClassTypeCaster($resolver, $parser, $reflectionHydrator);
         /** @var User $actual */
         $actual = $typeCaster->convert($data, User::class);
         $this->assertInstanceOf(User::class, $actual);
@@ -38,6 +32,26 @@ class ClassTypeCasterTest extends TestCase
         $this->assertSame(3.23, $actual->getWeight());
         $this->assertInstanceOf(\DateTime::class, $actual->getCreatedAt());
         $this->assertSame('2019-11-19 03:00:00', $actual->getCreatedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testDateTimeConvert(): void
+    {
+        $typeCaster = $this->createTypeCaster();
+        $this->assertFalse($typeCaster->supports('\DateTime'));
+        $this->assertFalse($typeCaster->supports('DateTime'));
+    }
+
+    private function createTypeCaster(): ClassTypeCaster
+    {
+        $resolver = new Resolver();
+        $resolver->addConverter(new DateTimeCaster());
+        $resolver->addConverter(new ScalarTypeCaster());
+
+        $reflectionHydrator = new ReflectionHydrator();
+
+        $parser = new Parser();
+
+        return new ClassTypeCaster($resolver, $parser, $reflectionHydrator);
     }
 }
 
