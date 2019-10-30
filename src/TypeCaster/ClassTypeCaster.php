@@ -95,7 +95,11 @@ class ClassTypeCaster implements TypeCasterInterface
             $generator = DocBlockGenerator::fromReflection($commentReflection);
             foreach ($generator->getTags() as $tag) {
                 if ($tag instanceof VarTag) {
-                    $schema[$property->getName()] = $tag->getTypes()[0];
+                    if ('self' === $tag->getTypes()[0]) {
+                        $schema[$property->getName()] = $refClass->getName();
+                    } else {
+                        $schema[$property->getName()] = $tag->getTypes()[0];
+                    }
                 }
             }
         }
