@@ -4,18 +4,10 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter\TypeCaster;
 
+use function Helicon\ObjectTypeParser\is_scalar_type_name;
+
 class ScalarTypeCaster implements TypeCasterInterface
 {
-    private const SUPPORTED_TYPES = [
-        'boolean',
-        'bool',
-        'integer',
-        'int',
-        'string',
-        'float',
-        'double',
-    ];
-
     /**
      * {@inheritdoc}
      */
@@ -31,6 +23,6 @@ class ScalarTypeCaster implements TypeCasterInterface
      */
     public function supports(string $type): bool
     {
-        return \in_array($type, self::SUPPORTED_TYPES, true);
+        return is_scalar_type_name($type);
     }
 }
