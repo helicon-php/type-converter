@@ -13,8 +13,10 @@ class DateTimeCaster implements TypeCasterInterface
 
     public function supports(string $type): bool
     {
-        $type = str_replace('\\', '', $type);
+        if (!class_exists($type)) {
+            return false;
+        }
 
-        return \DateTime::class === $type || \DateTimeImmutable::class === $type;
+        return (new \ReflectionClass($type))->implementsInterface(\DateTimeInterface::class);
     }
 }
