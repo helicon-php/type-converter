@@ -31,6 +31,7 @@
         "friendsofphp/php-cs-fixer": "^2.15"
     },
     "scripts": {
-        "cs-fix": ["php-cs-fixer fix -v"]
+        "cs-fix": ["php-cs-fixer fix -v"],
+        "phpunit": "./vendor/bin/phpunit tests/"
     }
 }

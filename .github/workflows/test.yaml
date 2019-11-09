@@ -1,0 +1,12 @@
+name: test
+
+on: [push]
+
+jobs:
+  phpunit:
+    - uses: actions/checkout@v1
+    - name: Run composer install
+      run: |
+        composer install
+    - name: Run test
+      run: composer phpunit
