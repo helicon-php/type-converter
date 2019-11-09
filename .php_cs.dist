@@ -11,8 +11,8 @@ return PhpCsFixer\Config::create()
         '@Symfony' => true,
         '@Symfony:risky' => true,
         '@DoctrineAnnotation' => true,
-        'array_syntax' => ['syntax' => 'short'],
-        'declare_strict_types' => true,
+        '@PHP73Migration' => true,
+        '@PHPUnit75Migration:risky' => true,
     ])
     ->setFinder($finder)
     ->setRiskyAllowed(true);

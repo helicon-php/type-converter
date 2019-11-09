@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Helicon\TypeConverter\TypeCaster\External;
-
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
