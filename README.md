@@ -63,7 +63,3 @@ $schemas = [
 
 $convertedRows = ($converter)($row, $schemas);
 var_dump($convertedRows);
-```
-
-
-
