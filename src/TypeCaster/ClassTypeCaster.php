@@ -7,7 +7,7 @@ namespace Helicon\TypeConverter\TypeCaster;
 use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\Resolver;
-use Zend\Hydrator\ReflectionHydrator;
+use Laminas\Hydrator\ReflectionHydrator;
 
 class ClassTypeCaster implements TypeCasterInterface
 {
@@ -26,11 +26,6 @@ class ClassTypeCaster implements TypeCasterInterface
      */
     private $reflectionHydrator;
 
-    /**
-     * @param Resolver           $resolver
-     * @param Parser             $parser
-     * @param ReflectionHydrator $reflectionHydrator
-     */
     public function __construct(Resolver $resolver, Parser $parser, ReflectionHydrator $reflectionHydrator)
     {
         $this->resolver = $resolver;
@@ -40,7 +35,6 @@ class ClassTypeCaster implements TypeCasterInterface
 
     /**
      * @param $value
-     * @param string $type
      *
      * @return mixed|object
      *

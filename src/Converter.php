@@ -11,9 +11,6 @@ class Converter implements ConverterInterface
      */
     private $resolver;
 
-    /**
-     * @param Resolver $resolver
-     */
     public function __construct(Resolver $resolver)
     {
         $this->resolver = $resolver;

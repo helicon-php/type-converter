@@ -82,41 +82,26 @@ class User
      */
     private $createdAt;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnable(): bool
     {
         return $this->enable;
     }
 
-    /**
-     * @return float
-     */
     public function getWeight(): float
     {
         return $this->weight;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
