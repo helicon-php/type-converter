@@ -10,9 +10,6 @@ class ScalarTypeCasterTest extends TestCase
 {
     /**
      * @dataProvider dpSupports
-     *
-     * @param string $type
-     * @param bool   $expected
      */
     public function testSupports(string $type, bool $expected): void
     {
@@ -24,7 +21,6 @@ class ScalarTypeCasterTest extends TestCase
      * @dataProvider dpConvert
      *
      * @param $value
-     * @param string $type
      * @param $expected
      */
     public function testConvert($value, string $type, $expected): void
