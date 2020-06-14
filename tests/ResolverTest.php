@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter;
 
+use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\TypeCaster\TypeCasterInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -22,14 +23,18 @@ class ResolverTest extends TestCase
             ->willReturn(true);
 
         $resolver = new Resolver();
-        $resolver->addConverter($typeCaster->reveal());
+        $resolver->addTypeCaster($typeCaster->reveal());
 
-        $resolver->resolve($type)->convert($value, $type);
-
-        $typeCaster->convert($value, $type)
-            ->shouldHaveBeenCalledTimes(1);
+        $resolver->resolve($type);
 
         $typeCaster->supports($type)
             ->shouldHaveBeenCalledTimes(1);
+    }
+
+    public function testTypeCasterException(): void
+    {
+        $this->expectException(TypeCasterException::class);
+        $resolver = new Resolver();
+        $resolver->resolve('abc');
     }
 }

@@ -85,9 +85,9 @@ class ConverterTest extends TestCase
         $resolver = new Resolver();
         $parser = new Parser();
 
-        $resolver->addConverter(new ScalarTypeCaster());
-        $resolver->addConverter(new DateTimeCaster());
-        $resolver->addConverter(new ClassTypeCaster($resolver, $parser, $hydrator));
+        $resolver->addTypeCaster(new ScalarTypeCaster());
+        $resolver->addTypeCaster(new DateTimeCaster());
+        $resolver->addTypeCaster(new ClassTypeCaster($resolver, $parser, $hydrator));
 
         return new Converter($resolver);
     }

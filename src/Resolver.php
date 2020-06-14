@@ -14,7 +14,7 @@ class Resolver
      */
     private $typeCasters = [];
 
-    public function addConverter(TypeCasterInterface $typeCaster): void
+    public function addTypeCaster(TypeCasterInterface $typeCaster): void
     {
         $this->typeCasters[] = $typeCaster;
     }
@@ -26,6 +26,6 @@ class Resolver
                 return $typeCaster;
             }
         }
-        throw new TypeCasterException('converter not supported '.$type); // TODO custom exception.
+        throw new TypeCasterException('converter not supported '.$type);
     }
 }

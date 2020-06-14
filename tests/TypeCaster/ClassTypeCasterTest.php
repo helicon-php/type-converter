@@ -6,8 +6,8 @@ namespace Helicon\TypeConverter\TypeCaster;
 
 use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\Resolver;
+use Laminas\Hydrator\ReflectionHydrator;
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ReflectionHydrator;
 
 class ClassTypeCasterTest extends TestCase
 {
@@ -44,8 +44,8 @@ class ClassTypeCasterTest extends TestCase
     private function createTypeCaster(): ClassTypeCaster
     {
         $resolver = new Resolver();
-        $resolver->addConverter(new DateTimeCaster());
-        $resolver->addConverter(new ScalarTypeCaster());
+        $resolver->addTypeCaster(new DateTimeCaster());
+        $resolver->addTypeCaster(new ScalarTypeCaster());
 
         $reflectionHydrator = new ReflectionHydrator();
 

@@ -24,9 +24,9 @@ $hydrator = new ReflectionHydrator();
 $resolver = new Resolver();
 $parser = new Parser();
 
-$resolver->addConverter(new ScalarTypeCaster());
-$resolver->addConverter(new DateTimeCaster());
-$resolver->addConverter(new ClassTypeCaster($resolver, $parser, $hydrator));
+$resolver->addTypeCaster(new ScalarTypeCaster());
+$resolver->addTypeCaster(new DateTimeCaster());
+$resolver->addTypeCaster(new ClassTypeCaster($resolver, $parser, $hydrator));
 
 
 $converter = new Converter($resolver);
