@@ -1,4 +1,6 @@
 ## helicon/type-converter
+![test](https://github.com/helicon-php/type-converter/workflows/test/badge.svg)
+
 This library is convert array data to definition types.
 
 ## using
