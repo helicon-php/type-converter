@@ -11,6 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class ClassTypeCasterTest extends TestCase
 {
+    /**
+     * @throws \ReflectionException
+     */
     public function testConvert(): void
     {
         $data = [
@@ -57,30 +60,11 @@ class ClassTypeCasterTest extends TestCase
 
 class User
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var bool
-     */
-    private $enable;
-
-    /**
-     * @var float
-     */
-    private $weight;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAt;
+    private int $id;
+    private string $name;
+    private bool $enable;
+    private float $weight;
+    private \DateTime $createdAt;
 
     public function getId(): int
     {

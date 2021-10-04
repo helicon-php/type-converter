@@ -6,12 +6,7 @@ namespace Helicon\TypeConverter\TypeCaster;
 
 interface TypeCasterInterface
 {
-    /**
-     * @param $value
-     *
-     * @return mixed
-     */
-    public function convert($value, string $type);
+    public function convert(mixed $value, string $type): mixed;
 
     public function supports(string $type): bool;
 }

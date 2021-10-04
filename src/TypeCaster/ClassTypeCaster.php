@@ -36,11 +36,9 @@ class ClassTypeCaster implements TypeCasterInterface
     /**
      * @param $value
      *
-     * @return mixed|object
-     *
      * @throws \ReflectionException
      */
-    public function convert($value, string $type)
+    public function convert(mixed $value, string $type): object
     {
         if (!\is_array($value)) {
             throw new TypeCasterException('ClassTypeCaster is need for array value');

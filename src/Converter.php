@@ -6,14 +6,8 @@ namespace Helicon\TypeConverter;
 
 class Converter implements ConverterInterface
 {
-    /**
-     * @var Resolver
-     */
-    private $resolver;
-
-    public function __construct(Resolver $resolver)
+    public function __construct(private Resolver $resolver)
     {
-        $this->resolver = $resolver;
     }
 
     public function __invoke(array $row, array $schemas): array

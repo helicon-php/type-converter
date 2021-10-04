@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Helicon\TypeConverter\TypeCaster\External;
 
 use Carbon\Carbon;
@@ -8,7 +10,7 @@ use Helicon\TypeConverter\TypeCaster\TypeCasterInterface;
 
 class CarbonTypeCaster implements TypeCasterInterface
 {
-    public function convert($value, string $type)
+    public function convert(mixed $value, string $type): mixed
     {
         return new $type($value);
     }

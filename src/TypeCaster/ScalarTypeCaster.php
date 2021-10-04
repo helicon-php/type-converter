@@ -11,7 +11,7 @@ class ScalarTypeCaster implements TypeCasterInterface
     /**
      * {@inheritdoc}
      */
-    public function convert($value, string $type)
+    public function convert(mixed $value, string $type): mixed
     {
         settype($value, $type);
 

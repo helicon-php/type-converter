@@ -8,8 +8,8 @@ use Helicon\ObjectTypeParser\Parser;
 use Helicon\TypeConverter\TypeCaster\ClassTypeCaster;
 use Helicon\TypeConverter\TypeCaster\DateTimeCaster;
 use Helicon\TypeConverter\TypeCaster\ScalarTypeCaster;
+use Laminas\Hydrator\ReflectionHydrator;
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ReflectionHydrator;
 
 class ConverterTest extends TestCase
 {
@@ -95,20 +95,9 @@ class ConverterTest extends TestCase
 
 class Friend
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var self
-     */
-    private $child;
+    private int $id;
+    private string $name;
+    private self $child;
 
     /**
      * @return Friend
