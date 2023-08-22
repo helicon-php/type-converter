@@ -12,7 +12,7 @@ final class Resolver
     /**
      * @var TypeCasterInterface[]
      */
-    private $typeCasters = [];
+    private array $typeCasters = [];
 
     public function addTypeCaster(TypeCasterInterface $typeCaster): void
     {

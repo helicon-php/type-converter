@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter\TypeCaster;
 
-use Helicon\ObjectTypeParser\Parser;
+use Helicon\ObjectTypeParser\ParserInterface;
 use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\Resolver;
 use Laminas\Hydrator\ReflectionHydrator;
@@ -13,7 +13,7 @@ final class ClassTypeCaster implements TypeCasterInterface
 {
     public function __construct(
         private readonly Resolver $resolver,
-        private readonly Parser $parser,
+        private readonly ParserInterface $parser,
         private readonly ReflectionHydrator $reflectionHydrator
     ) {
     }
