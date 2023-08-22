@@ -9,33 +9,16 @@ use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\Resolver;
 use Laminas\Hydrator\ReflectionHydrator;
 
-class ClassTypeCaster implements TypeCasterInterface
+final class ClassTypeCaster implements TypeCasterInterface
 {
-    /**
-     * @var Resolver
-     */
-    private $resolver;
-
-    /**
-     * @var Parser
-     */
-    private $parser;
-
-    /**
-     * @var ReflectionHydrator
-     */
-    private $reflectionHydrator;
-
-    public function __construct(Resolver $resolver, Parser $parser, ReflectionHydrator $reflectionHydrator)
-    {
-        $this->resolver = $resolver;
-        $this->parser = $parser;
-        $this->reflectionHydrator = $reflectionHydrator;
+    public function __construct(
+        private readonly Resolver $resolver,
+        private readonly Parser $parser,
+        private readonly ReflectionHydrator $reflectionHydrator
+    ) {
     }
 
     /**
-     * @param $value
-     *
      * @throws \ReflectionException
      */
     public function convert(mixed $value, string $type): object
@@ -59,9 +42,7 @@ class ClassTypeCaster implements TypeCasterInterface
     public function supports(string $type): bool
     {
         try {
-            $refClass = new \ReflectionClass($type);
-
-            return $refClass->isUserDefined();
+            return (new \ReflectionClass($type))->isUserDefined();
         } catch (\ReflectionException $e) {
             return false;
         }

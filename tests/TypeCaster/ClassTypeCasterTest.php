@@ -9,7 +9,7 @@ use Helicon\TypeConverter\Resolver;
 use Laminas\Hydrator\ReflectionHydrator;
 use PHPUnit\Framework\TestCase;
 
-class ClassTypeCasterTest extends TestCase
+final class ClassTypeCasterTest extends TestCase
 {
     /**
      * @throws \ReflectionException

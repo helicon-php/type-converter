@@ -6,11 +6,8 @@ namespace Helicon\TypeConverter\TypeCaster;
 
 use function Helicon\ObjectTypeParser\is_scalar_type_name;
 
-class ScalarTypeCaster implements TypeCasterInterface
+final class ScalarTypeCaster implements TypeCasterInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function convert(mixed $value, string $type): mixed
     {
         settype($value, $type);
@@ -18,9 +15,6 @@ class ScalarTypeCaster implements TypeCasterInterface
         return $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supports(string $type): bool
     {
         return is_scalar_type_name($type);

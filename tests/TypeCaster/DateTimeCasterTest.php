@@ -6,7 +6,7 @@ namespace Helicon\TypeConverter\TypeCaster;
 
 use PHPUnit\Framework\TestCase;
 
-class DateTimeCasterTest extends TestCase
+final class DateTimeCasterTest extends TestCase
 {
     public function testConvert(): void
     {

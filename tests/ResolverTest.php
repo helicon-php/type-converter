@@ -7,9 +7,12 @@ namespace Helicon\TypeConverter;
 use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\TypeCaster\TypeCasterInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
-class ResolverTest extends TestCase
+final class ResolverTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testResolve(): void
     {
         $value = 'value';

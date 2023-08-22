@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use PHPUnit\Framework\TestCase;
 
-class CarbonTypeCasterTest extends TestCase
+final class CarbonTypeCasterTest extends TestCase
 {
     public function testConvert(): void
     {

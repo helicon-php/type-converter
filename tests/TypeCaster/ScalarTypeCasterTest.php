@@ -19,9 +19,6 @@ class ScalarTypeCasterTest extends TestCase
 
     /**
      * @dataProvider dpConvert
-     *
-     * @param $value
-     * @param $expected
      */
     public function testConvert($value, string $type, $expected): void
     {
