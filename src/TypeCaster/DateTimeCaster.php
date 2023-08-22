@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter\TypeCaster;
 
-class DateTimeCaster implements TypeCasterInterface
+final class DateTimeCaster implements TypeCasterInterface
 {
     public function convert(mixed $value, string $type): mixed
     {

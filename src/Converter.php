@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Helicon\TypeConverter;
 
-class Converter implements ConverterInterface
+final class Converter implements ConverterInterface
 {
-    public function __construct(private Resolver $resolver)
+    public function __construct(private readonly Resolver $resolver)
     {
     }
 

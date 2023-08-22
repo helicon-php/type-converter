@@ -7,7 +7,7 @@ namespace Helicon\TypeConverter;
 use Helicon\TypeConverter\Exception\TypeCasterException;
 use Helicon\TypeConverter\TypeCaster\TypeCasterInterface;
 
-class Resolver
+final class Resolver
 {
     /**
      * @var TypeCasterInterface[]

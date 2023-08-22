@@ -11,7 +11,7 @@ use Helicon\TypeConverter\TypeCaster\ScalarTypeCaster;
 use Laminas\Hydrator\ReflectionHydrator;
 use PHPUnit\Framework\TestCase;
 
-class ConverterTest extends TestCase
+final class ConverterTest extends TestCase
 {
     public function testConvert(): void
     {
@@ -99,9 +99,6 @@ class Friend
     private string $name;
     private self $child;
 
-    /**
-     * @return Friend
-     */
     public function getChild(): self
     {
         return $this->child;

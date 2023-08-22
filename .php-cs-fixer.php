@@ -12,7 +12,7 @@ return $config->setRules([
     '@PSR12' => true,
     '@Symfony' => true,
     '@Symfony:risky' => true,
-    '@PHP80Migration' => true,
+    '@PHP81Migration' => true,
     '@DoctrineAnnotation' => true,
     'array_syntax' => ['syntax' => 'short'],
     'declare_strict_types' => true,
